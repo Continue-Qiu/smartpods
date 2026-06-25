@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartPods Pro - 浜у搧灞曠ず</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #0a0a0f;
+            --card: #13131a;
+            --border: #1e1e2a;
+            --text: #e4e4e7;
+            --muted: #71717a;
+            --accent: #6366f1;
+            --accent-glow: rgba(99, 102, 241, 0.3);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ========== 瀵艰埅鏍?========== */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        nav .inner {
+            max-width: 1200px; margin: 0 auto;
+            padding: 0 24px; height: 64px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        nav .logo { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
+        nav .logo span { color: var(--accent); }
+        nav .links { display: flex; gap: 32px; list-style: none; }
+        nav .links a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color .2s; }
+        nav .links a:hover { color: var(--text); }
+        nav .btn { background: var(--accent); color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-size: 14px; cursor: pointer; transition: box-shadow .3s; }
+        nav .btn:hover { box-shadow: 0 0 24px var(--accent-glow); }
+
+        /* ========== Hero ========== */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center;
+            padding: 120px 24px 80px; max-width: 1200px; margin: 0 auto;
+        }
+        .hero .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; width: 100%; }
+        .hero .tag { display: inline-block; background: rgba(99, 102, 241, 0.15); color: var(--accent); padding: 4px 14px; border-radius: 20px; font-size: 13px; margin-bottom: 20px; }
+        .hero h1 { font-size: 56px; font-weight: 800; line-height: 1.1; letter-spacing: -2px; margin-bottom: 24px; }
+        .hero h1 span { background: linear-gradient(135deg, #6366f1, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { color: var(--muted); font-size: 17px; max-width: 460px; margin-bottom: 36px; }
+        .hero .cta { display: flex; gap: 16px; }
+        .btn-primary { background: var(--accent); color: #fff; border: none; padding: 14px 32px; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all .3s; }
+        .btn-primary:hover { box-shadow: 0 0 32px var(--accent-glow); transform: translateY(-2px); }
+        .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); padding: 14px 32px; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all .3s; }
+        .btn-outline:hover { border-color: var(--accent); }
+
+        .hero .visual {
+            position: relative; display: flex; align-items: center; justify-content: center;
+        }
+        .hero .product-img {
+            width: 320px; height: 380px;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 40px;
+            position: relative; z-index: 2;
+            box-shadow: 0 0 80px rgba(99, 102, 241, 0.2);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 80px;
+        }
+        .hero .glow {
+            position: absolute; width: 400px; height: 400px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            border-radius: 50%; z-index: 1; animation: pulse 3s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        /* ========== 鐗规€?========== */
+        .features {
+            padding: 100px 24px; max-width: 1200px; margin: 0 auto;
+        }
+        .features .section-title { text-align: center; margin-bottom: 64px; }
+        .features .section-title h2 { font-size: 40px; font-weight: 700; letter-spacing: -1px; margin-bottom: 12px; }
+        .features .section-title p { color: var(--muted); font-size: 16px; }
+        .features .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .feature-card {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 16px; padding: 32px; transition: all .3s;
+        }
+        .feature-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+        .feature-card .icon { width: 48px; height: 48px; background: rgba(99, 102, 241, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 20px; }
+        .feature-card h3 { font-size: 18px; margin-bottom: 8px; }
+        .feature-card p { color: var(--muted); font-size: 14px; }
+
+        /* ========== 浠锋牸 ========== */
+        .pricing {
+            padding: 100px 24px; max-width: 1200px; margin: 0 auto;
+        }
+        .pricing .section-title { text-align: center; margin-bottom: 64px; }
+        .pricing .section-title h2 { font-size: 40px; font-weight: 700; letter-spacing: -1px; margin-bottom: 12px; }
+        .pricing .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .plan {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 20px; padding: 40px 32px; text-align: center; transition: all .3s;
+        }
+        .plan.featured { border-color: var(--accent); background: linear-gradient(180deg, rgba(99,102,241,0.08), var(--card)); }
+        .plan h3 { font-size: 20px; margin-bottom: 16px; }
+        .plan .price { font-size: 48px; font-weight: 800; margin-bottom: 8px; }
+        .plan .price span { font-size: 16px; font-weight: 400; color: var(--muted); }
+        .plan .features-list { list-style: none; margin: 28px 0; text-align: left; }
+        .plan .features-list li { padding: 8px 0; color: var(--muted); font-size: 14px; }
+        .plan .features-list li::before { content: '鉁?'; color: var(--accent); }
+        .plan:hover { border-color: var(--accent); }
+
+        /* ========== 椤佃剼 ========== */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 24px; text-align: center; color: var(--muted); font-size: 14px;
+        }
+
+        /* ========== 鍝嶅簲寮?========== */
+        @media (max-width: 768px) {
+            nav .links { display: none; }
+            .hero .grid { grid-template-columns: 1fr; gap: 48px; text-align: center; }
+            .hero h1 { font-size: 36px; }
+            .hero p { max-width: 100%; margin: 0 auto 32px; }
+            .hero .cta { justify-content: center; }
+            .features .cards, .pricing .plans { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ========== 瀵艰埅鏍?========== -->
+<nav>
+    <div class="inner">
+        <div class="logo">Smart<span>Pods</span></div>
+        <ul class="links">
+            <li><a href="#features">鍔熻兘</a></li>
+            <li><a href="#specs">瑙勬牸</a></li>
+            <li><a href="#pricing">浠锋牸</a></li>
+            <li><a href="#reviews">璇勪环</a></li>
+        </ul>
+        <button class="btn">绔嬪嵆璐拱</button>
+    </div>
+</nav>
+
+<!-- ========== Hero ========== -->
+<section class="hero">
+    <div class="grid">
+        <div>
+            <div class="tag">鏂板搧鍙戝竷</div>
+            <h1>鍚<span>鏈潵</span>鐨勫０闊?/h1>
+            <p>SmartPods Pro 鎼浇鑷爺绌洪棿闊抽鑺墖锛岃嚜閫傚簲闄嶅櫔娣卞害杈?48dB锛岀画鑸獊鐮?36 灏忔椂銆傞噸鏂板畾涔夋棤绾胯亞鍚綋楠屻€?/p>
+            <div class="cta">
+                <button class="btn-primary">绔嬪嵆璐拱 鈥?楼1,299</button>
+                <button class="btn-outline">浜嗚В鏇村</button>
+            </div>
+        </div>
+        <div class="visual">
+            <div class="glow"></div>
+            <div class="product-img">馃帶</div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== 鍔熻兘鐗规€?========== -->
+<section class="features" id="features">
+    <div class="section-title">
+        <h2>涓烘瀬鑷翠綋楠岃€岀敓</h2>
+        <p>姣忎竴椤规妧鏈兘缁忚繃绮惧績鎵撶（</p>
+    </div>
+    <div class="cards">
+        <div class="feature-card">
+            <div class="icon">馃攪</div>
+            <h3>鑷€傚簲闄嶅櫔</h3>
+            <p>48dB 娣卞害闄嶅櫔锛屽疄鏃跺垎鏋愮幆澧冨櫔闊冲苟鑷姩璋冩暣闄嶅櫔绛夌骇锛屽湴閾併€佸挅鍟￠銆佸姙鍏鍦烘櫙鏅鸿兘鍒囨崲銆?/p>
+        </div>
+        <div class="feature-card">
+            <div class="icon">馃幍</div>
+            <h3>绌洪棿闊抽</h3>
+            <p>鍔ㄦ€佸ご閮ㄨ拷韪?+ 鏉滄瘮鍏ㄦ櫙澹帮紝钀ラ€?360掳 娌夋蹈寮忓０鍦猴紝濡傚悓缃韩闊充箰鍘呯幇鍦恒€?/p>
+        </div>
+        <div class="feature-card">
+            <div class="icon">馃攱</div>
+            <h3>36h 瓒呴暱缁埅</h3>
+            <p>鍗曟鍏呯數缁埅 8 灏忔椂锛屽厖鐢电洅棰濆鎻愪緵 28 灏忔椂銆傚揩鍏?10 鍒嗛挓鍗冲彲浣跨敤 2 灏忔椂銆?/p>
+        </div>
+        <div class="feature-card">
+            <div class="icon">馃挧</div>
+            <h3>IPX5 闃叉按</h3>
+            <p>鏃犳儳姹楁按涓庨洦姘达紝杩愬姩鍦烘櫙鏀惧績浣跨敤銆傜撼绫虫秱灞傚伐鑹轰繚鎶ゅ唴閮ㄧ簿瀵嗗厓浠躲€?/p>
+        </div>
+        <div class="feature-card">
+            <div class="icon">馃摫</div>
+            <h3>鍙岃澶囨棤缂濆垏鎹?/h3>
+            <p>鎵嬫満鏉ョ數鑷姩鍒囨崲锛屾寕鏂悗鎭㈠鍘熻澶囨挱鏀俱€傛敮鎸?iOS / Android / Windows / Mac 鍏ㄥ钩鍙般€?/p>
+        </div>
+        <div class="feature-card">
+            <div class="icon">馃帣锔?/div>
+            <h3>涓夐害鍏嬮閫氳瘽</h3>
+            <p>娉㈡潫鎴愬舰 + AI 闄嶅櫔绠楁硶锛屽嵆浣垮湪澶ч澶╀篃鑳借瀵规柟鍚竻浣犵殑姣忎竴鍙ヨ瘽銆?/p>
+        </div>
+    </div>
+</section>
+
+<!-- ========== 浠锋牸鏂规 ========== -->
+<section class="pricing" id="pricing">
+    <div class="section-title">
+        <h2>閫夋嫨浣犵殑鐗堟湰</h2>
+        <p>姣忎釜鐗堟湰鍧囦韩 30 澶╂棤蹇ч€€璐?/p>
+    </div>
+    <div class="plans">
+        <div class="plan">
+            <h3>鏍囧噯鐗?/h3>
+            <div class="price">楼899<span>/鍓?/span></div>
+            <ul class="features-list">
+                <li>30dB 涓诲姩闄嶅櫔</li>
+                <li>24h 鎬荤画鑸?/li>
+                <li>IPX4 闃叉簠姘?/li>
+                <li>USB-C 鍏呯數</li>
+            </ul>
+            <button class="btn-primary" style="width:100%">璐拱鏍囧噯鐗?/button>
+        </div>
+        <div class="plan featured">
+            <h3>Pro 鐗?猸?/h3>
+            <div class="price">楼1,299<span>/鍓?/span></div>
+            <ul class="features-list">
+                <li>48dB 鑷€傚簲闄嶅櫔</li>
+                <li>36h 鎬荤画鑸?+ 蹇厖</li>
+                <li>绌洪棿闊抽 + 澶撮儴杩借釜</li>
+                <li>IPX5 闃叉按</li>
+                <li>鏃犵嚎鍏呯數</li>
+            </ul>
+            <button class="btn-primary" style="width:100%">璐拱 Pro 鐗?/button>
+        </div>
+        <div class="plan">
+            <h3>Ultra 鐗?/h3>
+            <div class="price">楼1,899<span>/鍓?/span></div>
+            <ul class="features-list">
+                <li>Pro 鐗堝叏閮ㄥ姛鑳?/li>
+                <li>50dB 闄嶅櫔娣卞害</li>
+                <li>閽涘悎閲戝澹?/li>
+                <li>涓撳睘闀洉鍒诲瓧</li>
+                <li>2 骞磋川淇?/li>
+            </ul>
+            <button class="btn-outline" style="width:100%">璐拱 Ultra 鐗?/button>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>漏 2026 SmartPods. All rights reserved.  |  闅愮鏀跨瓥  |  鏈嶅姟鏉℃</p>
+</footer>
+
+</body>
+</html>
